@@ -37,15 +37,41 @@ namespace rollerCoasterBuilder {
             if (index == Math.floor(length / 2)) {
                 placePoweredRail()
             } else {
-                placeRailInternal(builder.position(), railBase, POWERED_RAIL)
+                placeUnpoweredPoweredRail()
             }
             builder.move(FORWARD, 1)
+        }
+    }
+
+    //% block="builder place ramp up of height $height"
+    //% height.defl=10
+    //% blockId="rollerCoasterBuilderRampUp"
+    export function rampUp(height: number) {
+        for (let index = 0; index <= height; index++) {
+            if (index > 0) {
+                builder.mark()
+                builder.move(UP, index - 1)
+                builder.fill(railBase)
+                builder.move(UP, 1)
+            }
+            if (index % 8 == 0) {
+                rollerCoasterBuilder.placePoweredRail()
+            } else {
+                placeUnpoweredPoweredRail()
+            }
+            builder.move(FORWARD, 1)
+            builder.move(DOWN, index)
         }
     }
 
     function placeRailInternal(position: Position, baseBlock: number, railBlock: number) {
         blocks.place(baseBlock, position)
         blocks.place(railBlock, position.move(CardinalDirection.Up, 1))
+    }
+
+    // Intentionally not exposed, as it's a bit confusing...
+    function placeUnpoweredPoweredRail() {
+        placeRailInternal(builder.position(), railBase, POWERED_RAIL)
     }
 
     //% group="Customization"
