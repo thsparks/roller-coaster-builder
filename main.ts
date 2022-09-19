@@ -2,30 +2,40 @@
 namespace rollerCoasterBuilder {
     let railBase = PLANKS_OAK
 
-    //% block="place rail at position $position"
-    //% position.shadow=minecraftCreatePosition
+    //% block="builder place rail"
     //% blockId="rollerCoasterBuilderPlaceRail"
-    export function PlaceRail(position: Position) {
-        placeRailInternal(position, railBase, RAIL)
+    export function placeRail() {
+        placeRailInternal(builder.position(), railBase, RAIL)
     }
 
-    //% block="place powered rail at position $position"
-    //% position.shadow=minecraftCreatePosition
+    //% block="builder place powered rail"
     //% blockId="rollerCoasterBuilderPlacePoweredRail"
-    export function placePoweredRail(position: Position) {
-        placeRailInternal(position, REDSTONE_BLOCK, POWERED_RAIL)
+    export function placePoweredRail() {
+        placeRailInternal(builder.position(), REDSTONE_BLOCK, POWERED_RAIL)
     }
 
-    //% block="place powered straight line starting at $position of length $length"
-    //% position.shadow=minecraftCreatePosition
+    //% block="builder place straight line track of length $length || with power every %powerInterval blocks"
+    //% length.defl=9 length.min=1
+    //% powerInterval.defl=5 powerInterval.min=1 powerInterval.max=9
+    //% blockId="rollerCoasterBuilderPlaceLine"
+    export function placeLine(length: number, powerInterval: number) {
+        for (let index = 0; index < length; index++) {
+            if (index % powerInterval == 0) {
+                placePoweredRail()
+            } else {
+                placeRail()
+            }
+            builder.move(FORWARD, 1)
+        }
+    }
+
+    //% block="builder place fully powered straight line track of length $length"
     //% length.defl=9 length.min=1 length.max=17
     //% blockId="rollerCoasterBuilderPlacePoweredLine"
-    export function placePoweredLine(position: Position, length: number) {
-        builder.teleportTo(posCamera(0, -1, 1))
-        builder.face(positions.toCompassDirection(player.getOrientation()))
+    export function placePoweredLine(length: number) {
         for (let index = 0; index < length; index++) {
             if (index == Math.floor(length / 2)) {
-                rollerCoasterBuilder.placePoweredRail(builder.position())
+                placePoweredRail()
             } else {
                 placeRailInternal(builder.position(), railBase, POWERED_RAIL)
             }
