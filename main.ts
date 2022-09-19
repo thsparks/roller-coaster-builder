@@ -55,10 +55,8 @@ namespace rollerCoasterBuilder {
     export function SetRollerCoasterBaseBlock(blockType: number) {
         railBase = blockType
     }
-}
 
-//% color="#9C5F9B" block="Builder Helpers" advanced=true
-namespace builderHelpers {
+    //% group="Builder Helpers"
     //% block="builder face same direction as player"
     //% blockType.shadow=minecraftBlock
     //% blockId="rcBuilderHelpersFacePlayer"
