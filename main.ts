@@ -15,10 +15,10 @@ namespace rollerCoasterBuilder {
     }
 
     //% block="builder place straight line track of length $length || with power every %powerInterval blocks"
-    //% length.defl=9 length.min=1
+    //% length.defl=10 length.min=1
     //% powerInterval.defl=5 powerInterval.min=1 powerInterval.max=9
     //% blockId="rollerCoasterBuilderPlaceLine"
-    export function placeLine(length: number, powerInterval: number) {
+    export function placeLine(length: number, powerInterval: number = 5) {
         for (let index = 0; index < length; index++) {
             if (index % powerInterval == 0) {
                 placePoweredRail()
@@ -30,7 +30,7 @@ namespace rollerCoasterBuilder {
     }
 
     //% block="builder place fully powered straight line track of length $length"
-    //% length.defl=9 length.min=1 length.max=17
+    //% length.defl=10 length.min=1 length.max=17
     //% blockId="rollerCoasterBuilderPlacePoweredLine"
     export function placePoweredLine(length: number) {
         for (let index = 0; index < length; index++) {
@@ -62,7 +62,7 @@ namespace builderHelpers {
     //% block
     //% blockType.shadow=minecraftBlock
     //% blockId="rcBuilderHelpersFacePlayer"
-    export function builderFacePlayer() {
+    export function builderFacePlayerDirection() {
         builder.face(positions.toCompassDirection(player.getOrientation()))
     }
 }
