@@ -23,7 +23,7 @@ namespace rollerCoasterBuilder {
     export function placePoweredLine(position: Position, length: number) {
         builder.teleportTo(posCamera(0, -1, 1))
         builder.face(positions.toCompassDirection(player.getOrientation()))
-        for (let index = 0; index <= length; index++) {
+        for (let index = 0; index < length; index++) {
             if (index == Math.floor(length / 2)) {
                 rollerCoasterBuilder.placePoweredRail(builder.position())
             } else {
