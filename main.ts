@@ -16,7 +16,7 @@ namespace rollerCoasterBuilder {
 
     //% block="builder place straight line track of length $length || with power every %powerInterval blocks"
     //% length.defl=10 length.min=1
-    //% powerInterval.defl=5 powerInterval.min=1 powerInterval.max=9
+    //% powerInterval.defl=5 powerInterval.min=1 powerInterval.max=8
     //% blockId="rollerCoasterBuilderPlaceLine"
     export function placeLine(length: number, powerInterval: number = 5) {
         for (let index = 0; index < length; index++) {
