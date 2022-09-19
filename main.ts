@@ -59,7 +59,7 @@ namespace rollerCoasterBuilder {
 
 //% color="#9C5F9B" block="Builder Helpers" advanced=true
 namespace builderHelpers {
-    //% block
+    //% block="builder face same direction as player"
     //% blockType.shadow=minecraftBlock
     //% blockId="rcBuilderHelpersFacePlayer"
     export function builderFacePlayerDirection() {
