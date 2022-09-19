@@ -62,6 +62,7 @@ namespace rollerCoasterBuilder {
             builder.move(FORWARD, 1)
             builder.move(DOWN, index)
         }
+        builder.move(UP, height)
     }
 
     function placeRailInternal(position: Position, baseBlock: number, railBlock: number) {
