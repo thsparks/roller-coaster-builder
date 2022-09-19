@@ -2,18 +2,21 @@
 namespace rollerCoasterBuilder {
     let railBase = PLANKS_OAK
 
-    //% block
+    //% block="Place powered rail at position %position"
+    //% position.shadow=minecraftAgentSixDirection
     export function CreatePoweredRail(position: Position) {
         CreateRailInternal(position, REDSTONE_BLOCK, POWERED_RAIL)
     }
 
-    //% block
+    //% block="Place rail at position %position"
+    //% position.shadow=minecraftAgentSixDirection
     export function CreateRail(position: Position) {
         CreateRailInternal(position, railBase, RAIL)
     }
 
     //% block
     //% blockType.shadow=minecraftBlock
+    //% blockType.defl=PLANKS_OAK
     export function SetRollerCoasterBaseBlock(blockType: number) {
         railBase = blockType
     }
