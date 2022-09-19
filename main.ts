@@ -1,4 +1,4 @@
-//% color="#AA278D" weight=100 block="Roller Coaster"
+//% color="#9C5F9B" weight=100 block="Roller Coaster" icon="\uf3ff"
 namespace rollerCoasterBuilder {
     let railBase = PLANKS_OAK
 
@@ -54,5 +54,15 @@ namespace rollerCoasterBuilder {
     //% blockId="rollerCoasterBuilderSetBaseBlock"
     export function SetRollerCoasterBaseBlock(blockType: number) {
         railBase = blockType
+    }
+}
+
+//% color="#9C5F9B" block="Builder Helpers" advanced=true
+namespace builderHelpers {
+    //% block
+    //% blockType.shadow=minecraftBlock
+    //% blockId="rcBuilderHelpersFacePlayer"
+    export function builderFacePlayer() {
+        builder.face(positions.toCompassDirection(player.getOrientation()))
     }
 }
