@@ -116,6 +116,25 @@ namespace rollerCoasterBuilder {
         builder.move(FORWARD, 1)
     }
 
+    //% block="builder place $turnDirection turn spiral going $direction with width $width and height $height"
+    //% width.min=3 width.defl=3
+    //% height.min=1 height.defl=10
+    //% blockId="rollerCoasterBuilderPlaceSpiral"
+    export function placeSpiral(direction: RcBldVerticalDirections, turnDirection: TurnDirection, height: number = 10, width: number = 3) {
+        if (width < 3) width = 3; // Any less than this doesn't really work with minecart rails.
+        for (let index = 0; index < height; index++) {
+            rollerCoasterBuilder.buildRamp(direction, 1)
+            rollerCoasterBuilder.placeLine(width - 3) // -3 to account for ramp and turning blocks
+            rollerCoasterBuilder.placeRail();
+
+            // Do not turn on the final iteration; allow track to continue straight.
+            if (index != height - 1) {
+                // We don't use the Roller Coaster turn command because that places additional straight line blocks.
+                builder.turn(turnDirection);
+            }
+            builder.move(SixDirection.Forward, 1);
+        }
+    }
 
     function placeRailInternal(position: Position, baseBlock: number, railBlock: number) {
         blocks.place(baseBlock, position)
