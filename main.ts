@@ -2,13 +2,6 @@
 namespace rollerCoasterBuilder {
     let railBase = PLANKS_OAK
 
-    enum TurnDirection {
-        //% block="left" blockId="rollerCoasterBuilderLeft"
-        left,
-        //% block="right" blockId="rollerCoasterBuilderRight"
-        right
-    }
-
     //% block="builder place rail"
     //% blockId="rollerCoasterBuilderPlaceRail"
     export function placeRail() {
@@ -78,11 +71,7 @@ namespace rollerCoasterBuilder {
         rollerCoasterBuilder.placeRail()
         builder.move(FORWARD, 1)
         rollerCoasterBuilder.placeRail()
-        if (direction == TurnDirection.left) {
-            builder.turn(LEFT_TURN)
-        } else {
-            builder.turn(RIGHT_TURN)
-        }
+        builder.turn(direction);
         builder.move(FORWARD, 1)
         rollerCoasterBuilder.placeRail()
     }
