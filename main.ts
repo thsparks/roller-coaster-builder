@@ -49,7 +49,7 @@ namespace rollerCoasterBuilder {
         }
     }
 
-    //% block="builder place ramp up of height $height"
+    //% block="builder place ramp up of $height blocks"
     //% height.defl=10
     //% blockId="rollerCoasterBuilderRampUp"
     export function rampUp(height: number) {
@@ -73,6 +73,20 @@ namespace rollerCoasterBuilder {
             builder.move(DOWN, index)
         }
         builder.move(UP, height)
+    }
+
+    //% block="builder place ramp down of $distance blocks"
+    //% distance.defl=10
+    //% blockId="rollerCoasterBuilderRampDown"
+    export function rampDown(distance: number) {
+        for (let index = 0; index <= distance; index++) {
+            rollerCoasterBuilder.placeRail()
+            builder.move(DOWN, 1)
+            builder.move(FORWARD, 1)
+        }
+
+        // Undo the final down movement, since we didn't actually place a block.
+        builder.move(UP, 1)
     }
 
     //% block="builder place $direction turn in track"
