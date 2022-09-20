@@ -71,7 +71,7 @@ namespace rollerCoasterBuilder {
     }
 
     function rampUp(height: number) {
-        for (let index = 0; index < height; index++) {
+        for (let index = 0; index <= height; index++) {
             if (index > 0) {
                 if (fillTrack) {
                     builder.mark()
@@ -90,6 +90,7 @@ namespace rollerCoasterBuilder {
             builder.move(FORWARD, 1)
             builder.move(DOWN, index)
         }
+        builder.move(UP, height)
     }
 
     function rampDown(distance: number) {
