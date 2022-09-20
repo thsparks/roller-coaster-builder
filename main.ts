@@ -44,7 +44,7 @@ namespace rollerCoasterBuilder {
     }
 
     //% block="builder place fully powered straight line track of length $length"
-    //% length.defl=10 length.min=1 length.max=17
+    //% length.defl=10 length.min=1
     //% blockId="rollerCoasterBuilderPlacePoweredLine"
     export function placePoweredLine(length: number) {
         for (let index = 0; index < length; index++) {
