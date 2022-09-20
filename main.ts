@@ -107,13 +107,13 @@ namespace rollerCoasterBuilder {
     //% block="builder place $direction turn in track"
     //% blockId="rollerCoasterBuilderPlaceTurn"
     export function builderPlaceTurn(direction: TurnDirection) {
-        rollerCoasterBuilder.placeRail()
-        builder.move(FORWARD, 1)
-        rollerCoasterBuilder.placeRail()
+        rollerCoasterBuilder.placeRail();
+        builder.move(FORWARD, 1);
+        rollerCoasterBuilder.placeRail();
         builder.turn(direction);
-        builder.move(FORWARD, 1)
-        rollerCoasterBuilder.placeRail()
-        builder.move(FORWARD, 1)
+        builder.move(FORWARD, 1);
+        rollerCoasterBuilder.placeRail();
+        builder.move(FORWARD, 1);
     }
 
     //% block="builder place spiral going $direction turning $turnDirection with width $width and height $height"
