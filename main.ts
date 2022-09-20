@@ -116,7 +116,7 @@ namespace rollerCoasterBuilder {
         builder.move(FORWARD, 1)
     }
 
-    //% block="builder place $turnDirection turn spiral going $direction with width $width and height $height"
+    //% block="builder place spiral going $direction turning $turnDirection with width $width and height $height"
     //% width.min=3 width.defl=3
     //% height.min=1 height.defl=10
     //% blockId="rollerCoasterBuilderPlaceSpiral"
