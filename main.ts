@@ -2,6 +2,12 @@
 namespace rollerCoasterBuilder {
     let railBase = PLANKS_OAK
 
+    // Whether or not to always have track go to the ground.
+    // Currently just disabled.
+    // Could use fences (or have an option, "Fill With Base" "Fill With Fence" "None")?
+    // Would need to ensure airspace for intersection. (Add 1-2 air blocks above each track)
+    let fillTrack = false
+
     //% block="builder place rail"
     //% blockId="rollerCoasterBuilderPlaceRail"
     export function placeRail() {
@@ -47,12 +53,16 @@ namespace rollerCoasterBuilder {
     //% height.defl=10
     //% blockId="rollerCoasterBuilderRampUp"
     export function rampUp(height: number) {
-        for (let index = 0; index <= height; index++) {
+        for (let index = 0; index < height; index++) {
             if (index > 0) {
-                builder.mark()
-                builder.move(UP, index - 1)
-                builder.fill(railBase)
-                builder.move(UP, 1)
+                if (fillTrack) {
+                    builder.mark()
+                    builder.move(UP, index - 1)
+                    builder.fill(railBase)
+                    builder.move(UP, 1)
+                } else {
+                    builder.move(UP, index);
+                }
             }
             if (index % 8 == 0) {
                 rollerCoasterBuilder.placePoweredRail()
