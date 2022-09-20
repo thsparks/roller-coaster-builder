@@ -33,7 +33,8 @@ namespace rollerCoasterBuilder {
     //% blockId="rollerCoasterBuilderPlaceLine"
     export function placeLine(length: number, powerInterval: number = 5) {
         for (let index = 0; index < length; index++) {
-            if (index % powerInterval == 0) {
+            // Negative power interval (no power) more for internal use, not documented for external use.
+            if (powerInterval > 0 && index % powerInterval == 0) {
                 placePoweredRail()
             } else {
                 placeRail()
