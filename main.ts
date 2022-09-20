@@ -1,3 +1,10 @@
+enum RcBldVerticalDirections {
+    //% block="up" blockId="rollerCoasterBuilderUp"
+    Up,
+    //% block="down" blockId="rollerCoasterBuilderDown"
+    Down
+}
+
 //% color="#9C5F9B" weight=100 block="Roller Coaster" icon="\uf3ff"
 namespace rollerCoasterBuilder {
     let railBase = PLANKS_OAK
@@ -49,10 +56,20 @@ namespace rollerCoasterBuilder {
         }
     }
 
-    //% block="builder place ramp up of $height blocks"
-    //% height.defl=10
-    //% blockId="rollerCoasterBuilderRampUp"
-    export function rampUp(height: number) {
+
+    //% block="builder place ramp $direction of $distance blocks"
+    //% distance.defl=10
+    //% blockId="rollerCoasterBuilderRamp"
+    export function buildRamp(direction: RcBldVerticalDirections, distance: number) {
+        if (direction == RcBldVerticalDirections.Up) {
+            rampUp(distance);
+        }
+        else {
+            rampDown(distance);
+        }
+    }
+
+    function rampUp(height: number) {
         for (let index = 0; index < height; index++) {
             if (index > 0) {
                 if (fillTrack) {
@@ -75,10 +92,7 @@ namespace rollerCoasterBuilder {
         builder.move(UP, height)
     }
 
-    //% block="builder place ramp down of $distance blocks"
-    //% distance.defl=10
-    //% blockId="rollerCoasterBuilderRampDown"
-    export function rampDown(distance: number) {
+    function rampDown(distance: number) {
         for (let index = 0; index <= distance; index++) {
             rollerCoasterBuilder.placeRail()
             builder.move(DOWN, 1)
