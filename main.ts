@@ -127,7 +127,7 @@ namespace rollerCoasterBuilder {
             rollerCoasterBuilder.placeLine(
                 width - 3, // -3 to account for ramp and turning blocks
                 5, // power interval
-                true); // skip first power block (ramp up is already powered)
+                direction == RcBldVerticalDirections.Up); // skip first power block when going up (ramp up is already powered, ramp down is not)
             rollerCoasterBuilder.placeRail();
 
             // Do not turn on the final iteration; allow track to continue straight.
