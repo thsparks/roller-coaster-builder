@@ -104,6 +104,10 @@ namespace rollerCoasterBuilder {
     function placeRailInternal(position: Position, baseBlock: number, railBlock: number) {
         blocks.place(baseBlock, position)
         blocks.place(railBlock, position.move(CardinalDirection.Up, 1))
+
+        // Need two air blocks so player can fit if the track tunnels (or intersects with something).
+        blocks.place(AIR, position.move(CardinalDirection.Up, 2))
+        blocks.place(AIR, position.move(CardinalDirection.Up, 3))
     }
 
     // Intentionally not exposed, as it's a bit confusing...
