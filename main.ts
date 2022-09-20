@@ -31,10 +31,10 @@ namespace rollerCoasterBuilder {
     //% length.defl=10 length.min=1
     //% powerInterval.defl=5 powerInterval.min=1 powerInterval.max=8
     //% blockId="rollerCoasterBuilderPlaceLine"
-    export function placeLine(length: number, powerInterval: number = 5) {
+    export function placeLine(length: number, powerInterval: number = 5, skipFirstPowerBlock: boolean = false) {
         for (let index = 0; index < length; index++) {
-            // Negative power interval (no power) more for internal use, not documented for external use.
-            if (powerInterval > 0 && index % powerInterval == 0) {
+            // Skip first power interval is for internal use, not documented for external users.
+            if (!(index == 0 && skipFirstPowerBlock) && index % powerInterval == 0) {
                 placePoweredRail()
             } else {
                 placeRail()
@@ -124,7 +124,10 @@ namespace rollerCoasterBuilder {
         if (width < 3) width = 3; // Any less than this doesn't really work with minecart rails.
         for (let index = 0; index < height; index++) {
             rollerCoasterBuilder.buildRamp(direction, 1)
-            rollerCoasterBuilder.placeLine(width - 3) // -3 to account for ramp and turning blocks
+            rollerCoasterBuilder.placeLine(
+                width - 3, // -3 to account for ramp and turning blocks
+                5, // power interval
+                true); // skip first power block (ramp up is already powered)
             rollerCoasterBuilder.placeRail();
 
             // Do not turn on the final iteration; allow track to continue straight.
