@@ -112,6 +112,7 @@ namespace rollerCoasterBuilder {
         builder.turn(direction);
         builder.move(FORWARD, 1)
         rollerCoasterBuilder.placeRail()
+        builder.move(FORWARD, 1)
     }
 
 
