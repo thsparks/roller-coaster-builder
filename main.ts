@@ -149,10 +149,10 @@ namespace rollerCoasterBuilder {
         }
     }
 
-    //% block="builder place frefall of height $height"
+    //% block="builder place free fall of height $height"
     //% height.min=4 height.max=384 height.defl=10
     //% blockId="rollerCoasterBuilderPlaceFreefall"
-    export function placeFreefall(height: number) {
+    export function placeFreeFall(height: number) {
         // Height min 4, max world height?
         // Clear out free-fall area
         let startPos = builder.position()
