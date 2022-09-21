@@ -149,6 +149,39 @@ namespace rollerCoasterBuilder {
         }
     }
 
+    //% block="builder place frefall of height $height"
+    //% height.min=4 height.max=384 height.defl=10
+    //% blockId="rollerCoasterBuilderPlaceFreefall"
+    export function placeFreefall(height: number) {
+        // Height min 4, max world height?
+        // Clear out free-fall area
+        let startPos = builder.position()
+        builder.move(UP, 2)
+        builder.mark()
+        builder.move(FORWARD, 2)
+        builder.move(DOWN, height + 2)
+        builder.fill(AIR)
+        builder.teleportTo(startPos)
+
+        // Create wall to stop cart from moving forwards once it's off the track
+        placeRail()
+        builder.move(FORWARD, 2)
+        builder.mark()
+        builder.move(UP, 2)
+        builder.fill(railBase, FillOperation.Keep)
+
+        // We need a bit of a ramp at the bottom to get moving again.
+        builder.move(BACK, 2)
+        builder.move(DOWN, height)
+        placeUnpoweredPoweredRail()
+        builder.move(FORWARD, 1)
+        builder.move(DOWN, 1)
+        placePoweredRail()
+        builder.move(FORWARD, 1)
+        builder.move(DOWN, 1)
+        placeUnpoweredPoweredRail()
+    }
+
     function placeRailInternal(position: Position, baseBlock: number, railBlock: number) {
         blocks.place(baseBlock, position)
         blocks.place(railBlock, position.move(CardinalDirection.Up, 1))
