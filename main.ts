@@ -4,10 +4,19 @@ enum RcBldVerticalDirection {
     //% block="down" blockId="rollerCoasterBuilderDown"
     Down
 }
+enum RcBldPowerLevel {
+    //% block="full" blockId="rollerCoasterBuilderFullPower"
+    Full,
+    //% block="normal" blockId="rollerCoasterBuilderNormalPower"
+    Normal,
+    //% block="no" blockId="rollerCoasterBuilderNoPower"
+    No
+}
 
 //% color="#9C5F9B" weight=100 block="Roller Coaster" icon="\uf3ff"
 namespace rollerCoasterBuilder {
     let railBase = PLANKS_OAK
+    let powerInterval = 5 // Keep between 1 and 8, else minecarts may stop between power
 
     // Whether or not to always have track go to the ground.
     // Currently just disabled.
@@ -27,36 +36,24 @@ namespace rollerCoasterBuilder {
         placeRailInternal(builder.position(), REDSTONE_BLOCK, POWERED_RAIL)
     }
 
-    //% block="builder place straight line track of length $length || with power every %powerInterval blocks"
+    //% block="builder place straight line track of length $length || with $powerLevel power"
     //% length.defl=10 length.min=1
-    //% powerInterval.defl=5 powerInterval.min=1 powerInterval.max=8
+    //% powerLevel.defl=RcBldPowerLevel.Normal
     //% blockId="rollerCoasterBuilderPlaceLine"
-    export function placeLine(length: number, powerInterval: number = 5, skipFirstPowerBlock: boolean = false) {
+    export function placeLine(length: number, powerLevel: RcBldPowerLevel = RcBldPowerLevel.Normal) {
         for (let index = 0; index < length; index++) {
-            // Skip first power interval is for internal use, not documented for external users.
-            if (!(index == 0 && skipFirstPowerBlock) && index % powerInterval == 0) {
+            if (powerLevel != RcBldPowerLevel.No && index % powerInterval == 0) {
                 placePoweredRail()
             } else {
-                placeRail()
+                if (powerLevel == RcBldPowerLevel.Full) {
+                    placeUnpoweredPoweredRail();
+                } else {
+                    placeRail()
+                }
             }
             builder.move(FORWARD, 1)
         }
     }
-
-    //% block="builder place fully powered straight line track of length $length"
-    //% length.defl=10 length.min=1 length.max=17
-    //% blockId="rollerCoasterBuilderPlacePoweredLine"
-    export function placePoweredLine(length: number) {
-        for (let index = 0; index < length; index++) {
-            if (index == Math.floor(length / 2)) {
-                placePoweredRail()
-            } else {
-                placeUnpoweredPoweredRail()
-            }
-            builder.move(FORWARD, 1)
-        }
-    }
-
 
     //% block="builder place ramp $direction of $distance blocks"
     //% distance.defl=10
