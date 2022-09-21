@@ -197,8 +197,16 @@ namespace rollerCoasterBuilder {
     //% block
     //% blockType.shadow=minecraftBlock
     //% blockId="rollerCoasterBuilderSetBaseBlock"
-    export function SetRollerCoasterBaseBlock(blockType: number) {
+    export function setRollerCoasterBaseBlock(blockType: number) {
         railBase = blockType
+    }
+
+    //% group="Customization"
+    //% block="set normal power interval to $interval"
+    //% interval.defl=5 interval.min=1 interval.max=8
+    //% blockId="rollerCoasterBuilderSetPowerInterval"
+    export function setNormalPowerInterval(interval: number = 5) {
+        powerInterval = interval
     }
 
     //% group="Builder Helpers"
