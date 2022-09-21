@@ -1,4 +1,4 @@
-enum RcBldVerticalDirections {
+enum RcBldVerticalDirection {
     //% block="up" blockId="rollerCoasterBuilderUp"
     Up,
     //% block="down" blockId="rollerCoasterBuilderDown"
@@ -61,8 +61,8 @@ namespace rollerCoasterBuilder {
     //% block="builder place ramp $direction of $distance blocks"
     //% distance.defl=10
     //% blockId="rollerCoasterBuilderRamp"
-    export function buildRamp(direction: RcBldVerticalDirections, distance: number) {
-        if (direction == RcBldVerticalDirections.Up) {
+    export function buildRamp(direction: RcBldVerticalDirection, distance: number) {
+        if (direction == RcBldVerticalDirection.Up) {
             rampUp(distance);
         }
         else {
@@ -120,22 +120,32 @@ namespace rollerCoasterBuilder {
     //% width.min=3 width.defl=3
     //% height.min=1 height.defl=10
     //% blockId="rollerCoasterBuilderPlaceSpiral"
-    export function placeSpiral(direction: RcBldVerticalDirections, turnDirection: TurnDirection, height: number = 10, width: number = 3) {
-        if (width < 3) width = 3; // Any less than this doesn't really work with minecart rails.
-        for (let index = 0; index < height; index++) {
-            rollerCoasterBuilder.buildRamp(direction, 1)
-            rollerCoasterBuilder.placeLine(
-                width - 3, // -3 to account for ramp and turning blocks
-                5, // power interval
-                direction == RcBldVerticalDirections.Up); // skip first power block when going up (ramp up is already powered, ramp down is not)
-            rollerCoasterBuilder.placeRail();
-
-            // Do not turn on the final iteration; allow track to continue straight.
-            if (index != height - 1) {
-                // We don't use the Roller Coaster turn command because that places additional straight line blocks.
-                builder.turn(turnDirection);
+    export function placeSpiral(verticalDirection: RcBldVerticalDirection, turnDirection: TurnDirection, height: number = 10, width: number = 3) {
+        let totalHeightDiff = 0
+        while (totalHeightDiff < height) {
+            let heightChange = verticalDirection == RcBldVerticalDirection.Up && totalHeightDiff == 0 ? width - 1 : width - 2
+            if (totalHeightDiff + heightChange > height) {
+                heightChange = height - totalHeightDiff
             }
-            builder.move(SixDirection.Forward, 1);
+
+            if (heightChange == 0) return; // Error
+            rollerCoasterBuilder.buildRamp(verticalDirection, heightChange)
+            totalHeightDiff += heightChange
+
+            if (verticalDirection == RcBldVerticalDirection.Up) {
+                // Unpower the final rail in the ramp, so it can turn
+                builder.move(BACK, 1)
+                rollerCoasterBuilder.placeRail()
+            }
+
+            // Turn (unless we're done, in which case allow track to continue straight)
+            if (totalHeightDiff != height) {
+                builder.turn(turnDirection)
+            }
+
+            if (verticalDirection == RcBldVerticalDirection.Up) {
+                builder.move(FORWARD, 1)
+            }
         }
     }
 
