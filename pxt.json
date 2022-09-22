@@ -1,6 +1,6 @@
 {
     "name": "Roller_Coaster_Builder",
-    "version": "0.1.29",
+    "version": "0.1.30",
     "description": "",
     "dependencies": {
         "core": "*",
