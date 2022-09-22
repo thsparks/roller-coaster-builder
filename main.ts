@@ -36,6 +36,20 @@ namespace rollerCoasterBuilder {
         placeRailInternal(builder.position(), REDSTONE_BLOCK, POWERED_RAIL)
     }
 
+    // Intentionally not exposed, as it's a bit confusing...
+    function placeUnpoweredPoweredRail() {
+        placeRailInternal(builder.position(), railBase, POWERED_RAIL)
+    }
+
+    function placeRailInternal(position: Position, baseBlock: number, railBlock: number) {
+        blocks.place(baseBlock, position)
+        blocks.place(railBlock, position.move(CardinalDirection.Up, 1))
+
+        // Need two air blocks so player can fit if the track tunnels (or intersects with something).
+        blocks.place(AIR, position.move(CardinalDirection.Up, 2))
+        blocks.place(AIR, position.move(CardinalDirection.Up, 3))
+    }
+
     //% block="builder place straight line track of length $length || with $powerLevel power"
     //% length.defl=10 length.min=1
     //% powerLevel.defl=RcBldPowerLevel.Normal
@@ -55,7 +69,7 @@ namespace rollerCoasterBuilder {
         }
     }
 
-    //% block="builder place ramp $direction of $distance blocks"
+    //% block="builder place ramp $direction $distance blocks"
     //% distance.defl=10
     //% blockId="rollerCoasterBuilderRamp"
     export function buildRamp(direction: RcBldVerticalDirection, distance: number) {
@@ -177,20 +191,6 @@ namespace rollerCoasterBuilder {
         builder.move(FORWARD, 1)
         builder.move(DOWN, 1)
         placeUnpoweredPoweredRail()
-    }
-
-    function placeRailInternal(position: Position, baseBlock: number, railBlock: number) {
-        blocks.place(baseBlock, position)
-        blocks.place(railBlock, position.move(CardinalDirection.Up, 1))
-
-        // Need two air blocks so player can fit if the track tunnels (or intersects with something).
-        blocks.place(AIR, position.move(CardinalDirection.Up, 2))
-        blocks.place(AIR, position.move(CardinalDirection.Up, 3))
-    }
-
-    // Intentionally not exposed, as it's a bit confusing...
-    function placeUnpoweredPoweredRail() {
-        placeRailInternal(builder.position(), railBase, POWERED_RAIL)
     }
 
     //% group="Customization"
