@@ -13,7 +13,7 @@ enum RcBldPowerLevel {
     No
 }
 
-//% color="#9C5F9B" weight=100 block="Roller Coaster" icon="\uf3ff"
+//% color="#9C5F9B" block="Roller Coaster" icon="\uf3ff"
 namespace rollerCoasterBuilder {
     let railBase = PLANKS_OAK
     let powerInterval = 5 // Keep between 1 and 8, else minecarts may stop between power
