@@ -41,13 +41,105 @@ namespace rollerCoasterBuilder {
         placeRailInternal(builder.position(), railBase, POWERED_RAIL)
     }
 
+    function placeAirAbove(position: Position, start: number, dist: number) {
+        for (let i = 0; i <= dist - 1; i++) {
+            // Check for air first or we get a bunch of "cannot place block" errors.
+            const pos = position.move(CardinalDirection.Up, i + start)
+            if (!blocks.testForBlock(AIR, pos)) {
+                blocks.place(AIR, pos)
+            }
+        }
+    }
+
     function placeRailInternal(position: Position, baseBlock: number, railBlock: number) {
         blocks.place(baseBlock, position)
         blocks.place(railBlock, position.move(CardinalDirection.Up, 1))
 
         // Need two air blocks so player can fit if the track tunnels (or intersects with something).
-        blocks.place(AIR, position.move(CardinalDirection.Up, 2))
-        blocks.place(AIR, position.move(CardinalDirection.Up, 3))
+        placeAirAbove(position, 2, 2)
+    }
+
+    function getButtonAuxForDirection(direction: CompassDirection) {
+        switch (direction) {
+            case CompassDirection.North:
+                return 5;
+            case CompassDirection.East:
+                return 3;
+            case CompassDirection.South:
+                return 4;
+            case CompassDirection.West:
+                return 2;
+            default:
+                return 0;
+        }
+    }
+
+    //% block="Begin track at $position heading $direction"
+    //% position.shadow=minecraftCreatePosition
+    //% direction.defl=CompassDirection.North
+    //% powerLevel.defl=RcBldPowerLevel.Normal
+    //% blockId="rollerCoasterBuilderPlaceLine"
+    export function placeTrackStart(position: Position, direction: CompassDirection) {
+        // Block presets
+        let btnBkgBlock = PINK_CONCRETE
+        let nonBtnBkgBlock = BLOCK_OF_QUARTZ
+        let rampBlock = QUARTZ_SLAB
+        let btn = WARPED_BUTTON
+        let btnAux = getButtonAuxForDirection(direction)
+
+        builder.teleportTo(position)
+        builder.face(direction)
+
+        // Rails
+        placeUnpoweredPoweredRail()
+        builder.move(FORWARD, 1)
+        placeUnpoweredPoweredRail()
+
+        // Ramp
+        builder.move(RIGHT, 1)
+        builder.place(rampBlock)
+        placeAirAbove(builder.position(), 1, 3)
+        builder.move(BACK, 1)
+        builder.place(rampBlock)
+        placeAirAbove(builder.position(), 1, 3)
+
+        // Non-Button Background
+        builder.move(BACK, 1)
+        builder.mark()
+        builder.move(LEFT, 1)
+        builder.raiseWall(nonBtnBkgBlock, 4)
+
+        // Btn Background
+        builder.move(LEFT, 1)
+        builder.mark()
+        builder.move(LEFT, 1)
+        builder.raiseWall(btnBkgBlock, 4)
+        builder.mark()
+        builder.move(FORWARD, 2)
+        builder.raiseWall(btnBkgBlock, 4)
+        builder.move(RIGHT, 1)
+        builder.place(btnBkgBlock)
+        placeAirAbove(builder.position(), 1, 3)
+        builder.move(BACK, 1)
+        builder.place(btnBkgBlock)
+        placeAirAbove(builder.position(), 1, 3)
+
+        // Redstone
+        builder.move(UP, 1)
+        builder.place(REDSTONE_WIRE)
+
+        // Button
+        builder.move(UP, 1)
+        player.say(btn + ":" + btnAux)
+        builder.place(blocks.blockWithData(btn, btnAux))
+
+        // Minecart
+        // builder.shift(0, -1, -1)
+        // builder.place(MINECART)
+        mobs.give(mobs.target(LOCAL_PLAYER), MINECART, 1)
+
+        // Set builder location for next piece of track
+        builder.shift(2, -1, 0)
     }
 
     //% block="Add straight line of length $length || with $powerLevel power"
