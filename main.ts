@@ -139,7 +139,7 @@ namespace rollerCoasterBuilder {
         mobs.give(mobs.target(LOCAL_PLAYER), MINECART, 1)
 
         // Set builder location for next piece of track
-        builder.shift(2, -1, 0)
+        builder.shift(2, -2, -1)
     }
 
     //% block="Add straight line of length $length || with $powerLevel power"
