@@ -94,9 +94,14 @@ namespace rollerCoasterBuilder {
         placeUnpoweredPoweredRail()
         builder.move(FORWARD, 1)
         placeUnpoweredPoweredRail()
+        builder.move(FORWARD, 1)
+        placeRail()
 
         // Ramp
         builder.move(RIGHT, 1)
+        builder.place(rampBlock)
+        placeAirAbove(builder.position(), 1, 3)
+        builder.move(BACK, 1)
         builder.place(rampBlock)
         placeAirAbove(builder.position(), 1, 3)
         builder.move(BACK, 1)
@@ -115,9 +120,12 @@ namespace rollerCoasterBuilder {
         builder.move(LEFT, 1)
         builder.raiseWall(btnBkgBlock, 4)
         builder.mark()
-        builder.move(FORWARD, 2)
+        builder.move(FORWARD, 3)
         builder.raiseWall(btnBkgBlock, 4)
         builder.move(RIGHT, 1)
+        builder.place(btnBkgBlock)
+        placeAirAbove(builder.position(), 1, 3)
+        builder.move(BACK, 1)
         builder.place(btnBkgBlock)
         placeAirAbove(builder.position(), 1, 3)
         builder.move(BACK, 1)
@@ -139,11 +147,7 @@ namespace rollerCoasterBuilder {
         mobs.give(mobs.target(LOCAL_PLAYER), MINECART, 1)
 
         // Set builder location for next piece of track
-        // and place one unpowered rail so we don't accidentally
-        // power the start rails from the next section
-        builder.shift(2, -2, -1)
-        placeRail()
-        builder.move(SixDirection.Forward, 1)
+        builder.shift(3, -2, -1)
     }
 
     //% block="Add straight line of length $length || with $powerLevel power"
