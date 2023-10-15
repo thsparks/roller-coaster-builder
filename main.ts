@@ -24,14 +24,14 @@ namespace rollerCoasterBuilder {
     // Would need to ensure airspace for intersection. (Add 1-2 air blocks above each track)
     let fillTrack = false
 
-    //% block="Add rail to track"
-    //% blockId="rollerCoasterBuilderPlaceRail"
+    //% block="Add single rail to track"
+    //% blockId="rollerCoasterBuilderPlaceRail" weight=65
     export function placeRail() {
         placeRailInternal(builder.position(), railBase, RAIL)
     }
 
-    //% block="Add powered rail to track"
-    //% blockId="rollerCoasterBuilderPlacePoweredRail"
+    //% block="Add single powered rail to track"
+    //% blockId="rollerCoasterBuilderPlacePoweredRail" weight=70
     export function placePoweredRail() {
         placeRailInternal(builder.position(), REDSTONE_BLOCK, POWERED_RAIL)
     }
@@ -78,7 +78,7 @@ namespace rollerCoasterBuilder {
     //% position.shadow=minecraftCreatePosition
     //% direction.defl=CompassDirection.North
     //% powerLevel.defl=RcBldPowerLevel.Normal
-    //% blockId="rollerCoasterBuilderPlaceLine"
+    //% blockId="rollerCoasterBuilderBeginTrack" weight=100
     export function placeTrackStart(position: Position, direction: CompassDirection) {
         // Block presets
         let btnBkgBlock = PINK_CONCRETE
@@ -145,7 +145,7 @@ namespace rollerCoasterBuilder {
     //% block="Add straight line of length $length || with $powerLevel power"
     //% length.defl=10 length.min=1
     //% powerLevel.defl=RcBldPowerLevel.Normal
-    //% blockId="rollerCoasterBuilderPlaceLine"
+    //% blockId="rollerCoasterBuilderPlaceLine" weight=95
     export function placeLine(length: number, powerLevel: RcBldPowerLevel = RcBldPowerLevel.Normal) {
         for (let index = 0; index < length; index++) {
             if (powerLevel != RcBldPowerLevel.No && index % powerInterval == 0) {
@@ -163,7 +163,7 @@ namespace rollerCoasterBuilder {
 
     //% block="Add ramp $direction $distance blocks || changing 1 block vertically every $horiz blocks forward"
     //% distance.defl=10
-    //% blockId="rollerCoasterBuilderRamp"
+    //% blockId="rollerCoasterBuilderRamp" weight=90
     export function buildRamp(direction: RcBldVerticalDirection, distance: number) {
         if (direction == RcBldVerticalDirection.Up) {
             rampUp(distance);
@@ -208,7 +208,7 @@ namespace rollerCoasterBuilder {
     }
 
     //% block="Add $direction turn"
-    //% blockId="rollerCoasterBuilderPlaceTurn"
+    //% blockId="rollerCoasterBuilderPlaceTurn" weight=85
     export function builderPlaceTurn(direction: TurnDirection) {
         rollerCoasterBuilder.placeRail();
         builder.move(FORWARD, 1);
@@ -222,7 +222,7 @@ namespace rollerCoasterBuilder {
     //% block="Add spiral going $verticalDirection turning $turnDirection with width $width and height $height"
     //% width.min=3 width.defl=3
     //% height.min=1 height.defl=10
-    //% blockId="rollerCoasterBuilderPlaceSpiral"
+    //% blockId="rollerCoasterBuilderPlaceSpiral" weight=80
     export function placeSpiral(verticalDirection: RcBldVerticalDirection, turnDirection: TurnDirection, height: number = 10, width: number = 3) {
         let totalHeightDiff = 0
         while (totalHeightDiff < height) {
@@ -254,7 +254,7 @@ namespace rollerCoasterBuilder {
 
     //% block="Add free fall of height $height"
     //% height.min=4 height.max=384 height.defl=10
-    //% blockId="rollerCoasterBuilderPlaceFreefall"
+    //% blockId="rollerCoasterBuilderPlaceFreefall" weight=75
     export function placeFreeFall(height: number) {
         // Height min 4, max world height?
         // Clear out free-fall area
