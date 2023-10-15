@@ -139,7 +139,11 @@ namespace rollerCoasterBuilder {
         mobs.give(mobs.target(LOCAL_PLAYER), MINECART, 1)
 
         // Set builder location for next piece of track
+        // and place one unpowered rail so we don't accidentally
+        // power the start rails from the next section
         builder.shift(2, -2, -1)
+        placeRail()
+        builder.move(SixDirection.Forward, 1)
     }
 
     //% block="Add straight line of length $length || with $powerLevel power"
