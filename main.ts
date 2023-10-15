@@ -24,13 +24,13 @@ namespace rollerCoasterBuilder {
     // Would need to ensure airspace for intersection. (Add 1-2 air blocks above each track)
     let fillTrack = false
 
-    //% block="builder place rail"
+    //% block="Add rail to track"
     //% blockId="rollerCoasterBuilderPlaceRail"
     export function placeRail() {
         placeRailInternal(builder.position(), railBase, RAIL)
     }
 
-    //% block="builder place powered rail"
+    //% block="Add powered rail to track"
     //% blockId="rollerCoasterBuilderPlacePoweredRail"
     export function placePoweredRail() {
         placeRailInternal(builder.position(), REDSTONE_BLOCK, POWERED_RAIL)
@@ -50,7 +50,7 @@ namespace rollerCoasterBuilder {
         blocks.place(AIR, position.move(CardinalDirection.Up, 3))
     }
 
-    //% block="builder place straight line track of length $length || with $powerLevel power"
+    //% block="Add straight line of length $length || with $powerLevel power"
     //% length.defl=10 length.min=1
     //% powerLevel.defl=RcBldPowerLevel.Normal
     //% blockId="rollerCoasterBuilderPlaceLine"
@@ -69,7 +69,7 @@ namespace rollerCoasterBuilder {
         }
     }
 
-    //% block="builder place ramp $direction $distance blocks"
+    //% block="Add ramp $direction $distance blocks || changing 1 block vertically every $horiz blocks forward"
     //% distance.defl=10
     //% blockId="rollerCoasterBuilderRamp"
     export function buildRamp(direction: RcBldVerticalDirection, distance: number) {
@@ -115,7 +115,7 @@ namespace rollerCoasterBuilder {
         builder.move(UP, 1)
     }
 
-    //% block="builder place $direction turn in track"
+    //% block="Add $direction turn"
     //% blockId="rollerCoasterBuilderPlaceTurn"
     export function builderPlaceTurn(direction: TurnDirection) {
         rollerCoasterBuilder.placeRail();
@@ -127,7 +127,7 @@ namespace rollerCoasterBuilder {
         builder.move(FORWARD, 1);
     }
 
-    //% block="builder place spiral going $verticalDirection turning $turnDirection with width $width and height $height"
+    //% block="Add spiral going $verticalDirection turning $turnDirection with width $width and height $height"
     //% width.min=3 width.defl=3
     //% height.min=1 height.defl=10
     //% blockId="rollerCoasterBuilderPlaceSpiral"
@@ -160,7 +160,7 @@ namespace rollerCoasterBuilder {
         }
     }
 
-    //% block="builder place free fall of height $height"
+    //% block="Add free fall of height $height"
     //% height.min=4 height.max=384 height.defl=10
     //% blockId="rollerCoasterBuilderPlaceFreefall"
     export function placeFreeFall(height: number) {
