@@ -231,10 +231,10 @@ namespace rollerCoasterBuilder {
                 // Only needed on first descent level since the rest have the downhill to speed up.
                 let powerAtStart = currentDescent == 0 && horizSpace >= powerInterval;
                 if ((currentHoriz + (powerAtStart ? 0 : 1)) % powerInterval == 0) {
-                    placePoweredRail()
+                    rollerCoasterBuilder.placePoweredRail()
                 }
                 else {
-                    placeRail()
+                    rollerCoasterBuilder.placeRail()
                 }
                 builder.move(FORWARD, 1)
             }
