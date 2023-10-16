@@ -348,7 +348,7 @@ namespace rollerCoasterBuilder {
     }
 
     //% group="Customization"
-    //% block
+    //% block="set base block to $blockType"
     //% blockType.shadow=minecraftBlock
     //% blockId="rcbSetBaseBlock" weight=20
     export function setRollerCoasterBaseBlock(blockType: number) {
