@@ -196,24 +196,29 @@ namespace rollerCoasterBuilder {
     }
 
     function rampUp(height: number, horizSpace: number) {
-        for (let index = 0; index <= height; index++) {
-            if (index > 0) {
-                if (fillTrack) {
-                    builder.mark()
-                    builder.move(UP, index - 1)
-                    builder.fill(railBase)
-                    builder.move(UP, 1)
-                } else {
-                    builder.move(UP, index);
+        let unpoweredBlocksPlaced = 8; // Set to 8 so first block is powered.
+        for (let currentHeight = 0; currentHeight <= height; currentHeight++) {
+            for (let currentHoriz = 0; currentHoriz < horizSpace; currentHoriz++) {
+                if (currentHeight > 0) {
+                    if (fillTrack) {
+                        builder.mark()
+                        builder.move(UP, currentHeight - 1)
+                        builder.fill(railBase)
+                        builder.move(UP, 1)
+                    } else {
+                        builder.move(UP, currentHeight);
+                    }
                 }
+                if (unpoweredBlocksPlaced >= 8) {
+                    rollerCoasterBuilder.placePoweredRail()
+                    unpoweredBlocksPlaced = 0
+                } else {
+                    placeUnpoweredPoweredRail()
+                    unpoweredBlocksPlaced++
+                }
+                builder.move(FORWARD, 1)
+                builder.move(DOWN, currentHeight)
             }
-            if (index % 8 == 0) {
-                rollerCoasterBuilder.placePoweredRail()
-            } else {
-                placeUnpoweredPoweredRail()
-            }
-            builder.move(FORWARD, 1)
-            builder.move(DOWN, index)
         }
         builder.move(UP, height)
     }
