@@ -1,10 +1,10 @@
-enum RcBldVerticalDirection {
+enum RcbVerticalDirection {
     //% block="up" blockId="rollerCoasterBuilderUp"
     Up,
     //% block="down" blockId="rollerCoasterBuilderDown"
     Down
 }
-enum RcBldPowerLevel {
+enum RcbPowerLevel {
     //% block="full" blockId="rollerCoasterBuilderFullPower"
     Full,
     //% block="normal" blockId="rollerCoasterBuilderNormalPower"
@@ -181,12 +181,12 @@ namespace rollerCoasterBuilder {
     //% length.defl=10 length.min=1
     //% powerLevel.defl=RcBldPowerLevel.Normal
     //% blockId="rcbAddStraightLine" weight=95
-    export function addStraightLine(length: number, powerLevel: RcBldPowerLevel = RcBldPowerLevel.Normal) {
+    export function addStraightLine(length: number, powerLevel: RcbPowerLevel = RcbPowerLevel.Normal) {
         for (let index = 0; index < length; index++) {
-            if (powerLevel != RcBldPowerLevel.No && index % powerInterval == 0) {
+            if (powerLevel != RcbPowerLevel.No && index % powerInterval == 0) {
                 addPoweredRail()
             } else {
-                if (powerLevel == RcBldPowerLevel.Full) {
+                if (powerLevel == RcbPowerLevel.Full) {
                     addUnpoweredPoweredRail();
                 } else {
                     addRail()
@@ -201,8 +201,8 @@ namespace rollerCoasterBuilder {
     //% horizSpace.defl=1
     //% horizSpace.min=1
     //% blockId="rcbAddRamp" weight=90
-    export function addRamp(direction: RcBldVerticalDirection, distance: number, horizSpace: number = 1) {
-        if (direction == RcBldVerticalDirection.Up) {
+    export function addRamp(direction: RcbVerticalDirection, distance: number, horizSpace: number = 1) {
+        if (direction == RcbVerticalDirection.Up) {
             rampUp(distance, horizSpace);
         }
         else {
@@ -265,10 +265,10 @@ namespace rollerCoasterBuilder {
     //% width.min=3 width.defl=3
     //% height.min=1 height.defl=10
     //% blockId="rcbAddSpiral" weight=80
-    export function addSpiral(verticalDirection: RcBldVerticalDirection, turnDirection: TurnDirection, height: number = 10, width: number = 3) {
+    export function addSpiral(verticalDirection: RcbVerticalDirection, turnDirection: TurnDirection, height: number = 10, width: number = 3) {
         let totalHeightDiff = 0
         while (totalHeightDiff < height) {
-            let heightChange = verticalDirection == RcBldVerticalDirection.Up && totalHeightDiff == 0 ? width - 1 : width - 2
+            let heightChange = verticalDirection == RcbVerticalDirection.Up && totalHeightDiff == 0 ? width - 1 : width - 2
             if (totalHeightDiff + heightChange > height) {
                 heightChange = height - totalHeightDiff
             }
@@ -277,7 +277,7 @@ namespace rollerCoasterBuilder {
             rollerCoasterBuilder.addRamp(verticalDirection, heightChange, 1)
             totalHeightDiff += heightChange
 
-            if (verticalDirection == RcBldVerticalDirection.Up) {
+            if (verticalDirection == RcbVerticalDirection.Up) {
                 // Unpower the final rail in the ramp, so it can turn
                 builder.move(BACK, 1)
                 rollerCoasterBuilder.addRail()
@@ -288,7 +288,7 @@ namespace rollerCoasterBuilder {
                 builder.turn(turnDirection)
             }
 
-            if (verticalDirection == RcBldVerticalDirection.Up) {
+            if (verticalDirection == RcbVerticalDirection.Up) {
                 builder.move(FORWARD, 1)
             }
         }
