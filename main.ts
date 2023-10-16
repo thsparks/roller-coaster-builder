@@ -223,11 +223,21 @@ namespace rollerCoasterBuilder {
         builder.move(UP, height)
     }
 
-    function rampDown(distance: number, horizSpace: number) {
-        for (let index = 0; index <= distance; index++) {
-            rollerCoasterBuilder.placeRail()
+    function rampDown(descentDistance: number, horizSpace: number) {
+        for (let currentDescent = 0; currentDescent <= descentDistance; currentDescent++) {
+            for (let currentHoriz = 0; currentHoriz < horizSpace; currentHoriz++) {
+                // Place powered at start only if needed, then every powerInterval blocks.
+                // Only needed on first descent level since the rest have the downhill to speed up.
+                let powerAtStart = currentDescent == 0 && horizSpace >= powerInterval;
+                if ((currentHoriz + (powerAtStart ? 0 : 1)) % powerInterval == 0) {
+                    placePoweredRail()
+                }
+                else {
+                    placeRail()
+                }
+                builder.move(FORWARD, 1)
+            }
             builder.move(DOWN, 1)
-            builder.move(FORWARD, 1)
         }
 
         // Undo the final down movement, since we didn't actually place a block.
