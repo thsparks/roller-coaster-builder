@@ -25,8 +25,8 @@ namespace rollerCoasterBuilder {
     let fillTrack = false
 
     // Can be disabled for perf.
-    let waterProtection = true;
-    let lavaProtection = true;
+    let waterProtection = true
+    let lavaProtection = true
 
     //% block="add single rail to track"
     //% blockId="rollerCoasterBuilderPlaceRail" weight=65
@@ -346,7 +346,7 @@ namespace rollerCoasterBuilder {
     //% group="Customization"
     //% block
     //% blockType.shadow=minecraftBlock
-    //% blockId="rollerCoasterBuilderSetBaseBlock"
+    //% blockId="rollerCoasterBuilderSetBaseBlock" weight = 20
     export function setRollerCoasterBaseBlock(blockType: number) {
         railBase = blockType
     }
@@ -354,7 +354,7 @@ namespace rollerCoasterBuilder {
     //% group="Customization"
     //% block="set normal power interval to $interval"
     //% interval.defl=5 interval.min=1 interval.max=8
-    //% blockId="rollerCoasterBuilderSetPowerInterval"
+    //% blockId="rollerCoasterBuilderSetPowerInterval" weight = 19
     export function setNormalPowerInterval(interval: number = 5) {
         powerInterval = interval
     }
@@ -362,7 +362,7 @@ namespace rollerCoasterBuilder {
     //% group="Customization"
     //% block="set water protection to $value"
     //% value.defl=true
-    //% blockId="rollerCoasterBuilderSetWaterProtection"
+    //% blockId="rollerCoasterBuilderSetWaterProtection" weight = 18
     export function setWaterProtection(value: boolean) {
         waterProtection = value
     }
@@ -370,7 +370,7 @@ namespace rollerCoasterBuilder {
     //% group="Customization"
     //% block="set lava protection to $value"
     //% value.defl=true
-    //% blockId="rollerCoasterBuilderSetLavaProtection"
+    //% blockId="rollerCoasterBuilderSetLavaProtection" weight = 17
     export function setLavaProtection(value: boolean) {
         lavaProtection = value
     }
