@@ -185,7 +185,7 @@ namespace rollerCoasterBuilder {
 
     //% block="add ramp $direction $distance blocks || changing 1 block vertically every $horizSpace blocks forward"
     //% distance.defl=10
-    //& horizSpace.defl = 1
+    //% horizSpace.defl=1
     //% blockId="rollerCoasterBuilderRamp" weight=90
     export function buildRamp(direction: RcBldVerticalDirection, distance: number, horizSpace: number) {
         if (direction == RcBldVerticalDirection.Up) {
