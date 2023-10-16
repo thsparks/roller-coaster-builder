@@ -169,7 +169,7 @@ namespace rollerCoasterBuilder {
     //% powerLevel.defl=RcBldPowerLevel.Normal
     //% blockId="rcbPlaceEndTrack" weight=99
     export function placeTrackEnd() {
-        addUnpoweredPoweredRail()
+        addRail()
         builder.move(FORWARD, 1)
         builder.place(railBase)
         builder.move(UP, 1)
