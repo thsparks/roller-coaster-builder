@@ -49,21 +49,24 @@ namespace rollerCoasterBuilder {
         }
     }
 
+    function replaceWaterAndLava(cornerOne: Position, cornerTwo: Position) {
+        if (waterProtection) {
+            blocks.replace(GLASS, 9, cornerOne, cornerTwo) // 9 == also water?
+            blocks.replace(GLASS, WATER, cornerOne, cornerTwo)
+        }
+        if (lavaProtection) {
+            blocks.replace(GLASS, 11, cornerOne, cornerTwo) // 11 == also lava?
+            blocks.replace(GLASS, LAVA, cornerOne, cornerTwo)
+        }
+    }
+
     function placeRailInternal(position: Position, baseBlock: number, railBlock: number) {
         blocks.place(baseBlock, position)
 
         if (waterProtection || lavaProtection) {
             const southWestDownCorner = position.move(CardinalDirection.South, 1).move(CardinalDirection.West, 1).move(CardinalDirection.Up, 1)
             const northEastUpCorner = position.move(CardinalDirection.North, 1).move(CardinalDirection.East, 1).move(CardinalDirection.Up, 4)
-
-            if (waterProtection) {
-                blocks.replace(GLASS, 9, southWestDownCorner, northEastUpCorner) // 9 == flowing water
-                blocks.replace(GLASS, WATER, southWestDownCorner, northEastUpCorner)
-            }
-            if (lavaProtection) {
-                blocks.replace(GLASS, 11, southWestDownCorner, northEastUpCorner) // 9 == flowing lava
-                blocks.replace(GLASS, LAVA, southWestDownCorner, northEastUpCorner)
-            }
+            replaceWaterAndLava(southWestDownCorner, northEastUpCorner)
         }
 
         // Need air blocks so player can fit if the track tunnels (or intersects with something).
@@ -296,15 +299,32 @@ namespace rollerCoasterBuilder {
 
     //% block="add free fall of height $height"
     //% height.min=4 height.max=384 height.defl=10
-    //% blockId="rcbAddFreefall" weight=75
+    //% blockId="rcbAddFreeFall" weight=75
     export function addFreeFall(height: number) {
-        // Height min 4, max world height?
         // Clear out free-fall area
         let startPos = builder.position()
+        let cornerOne = undefined
+        let cornerTwo = undefined
         builder.move(UP, 2)
         builder.mark()
-        builder.move(FORWARD, 2)
-        builder.move(DOWN, height + 2)
+
+        if (waterProtection || lavaProtection) {
+            // This is icky, but I don't know of a better way to get it relative to facing direction.
+            builder.shift(-1, 1, 1)
+            cornerOne = builder.position()
+            builder.shift(1, -1, -1)
+        }
+
+        builder.shift(2, -height - 2, 0)
+
+        if (waterProtection || lavaProtection) {
+            builder.shift(1, -1, -1)
+            cornerTwo = builder.position()
+            builder.shift(-1, 1, 1)
+        }
+
+        replaceWaterAndLava(cornerOne, cornerTwo)
+
         builder.fill(AIR)
         builder.teleportTo(startPos)
 
