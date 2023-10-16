@@ -18,12 +18,6 @@ namespace rollerCoasterBuilder {
     let railBase = PLANKS_OAK
     let powerInterval = 5 // Keep between 1 and 8, else minecarts may stop between power
 
-    // Whether or not to always have track go to the ground.
-    // Currently just disabled.
-    // Could use fences (or have an option, "Fill With Base" "Fill With Fence" "None")?
-    // Would need to ensure airspace for intersection. (Add 1-2 air blocks above each track)
-    let fillTrack = false
-
     // Can be disabled for perf.
     let waterProtection = true
     let lavaProtection = true
@@ -221,14 +215,7 @@ namespace rollerCoasterBuilder {
         for (let currentHeight = 0; currentHeight <= height; currentHeight++) {
             for (let currentHoriz = 0; currentHoriz < horizSpace; currentHoriz++) {
                 if (currentHeight > 0) {
-                    if (fillTrack) {
-                        builder.mark()
-                        builder.move(UP, currentHeight - 1)
-                        builder.fill(railBase)
-                        builder.move(UP, 1)
-                    } else {
-                        builder.move(UP, currentHeight);
-                    }
+                    builder.move(UP, currentHeight);
                 }
                 if (unpoweredBlocksPlaced >= 8) {
                     rollerCoasterBuilder.placePoweredRail()
