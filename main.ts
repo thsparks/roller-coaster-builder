@@ -157,9 +157,9 @@ namespace rollerCoasterBuilder {
     //% blockId="rollerCoasterBuilderPlaceEndTrack" weight=99
     export function placeTrackEnd() {
         placeUnpoweredPoweredRail()
-        builder.move(SixDirection.Forward, 1)
+        builder.move(FORWARD, 1)
         builder.place(railBase)
-        builder.move(SixDirection.Up, 1)
+        builder.move(UP, 1)
         builder.place(railBase)
         builder.shift(1, -1, 0)
     }
