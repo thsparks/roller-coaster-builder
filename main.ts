@@ -254,7 +254,7 @@ namespace rollerCoasterBuilder {
             }
 
             if (heightChange == 0) return; // Error
-            rollerCoasterBuilder.buildRamp(verticalDirection, heightChange)
+            rollerCoasterBuilder.buildRamp(verticalDirection, heightChange, 1)
             totalHeightDiff += heightChange
 
             if (verticalDirection == RcBldVerticalDirection.Up) {
@@ -321,13 +321,5 @@ namespace rollerCoasterBuilder {
     //% blockId="rollerCoasterBuilderSetPowerInterval"
     export function setNormalPowerInterval(interval: number = 5) {
         powerInterval = interval
-    }
-
-    //% group="Builder Helpers"
-    //% block="builder face same direction as player"
-    //% blockType.shadow=minecraftBlock
-    //% blockId="rcBuilderHelpersFacePlayer"
-    export function builderFacePlayerDirection() {
-        builder.face(positions.toCompassDirection(player.getOrientation()))
     }
 }
