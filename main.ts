@@ -183,19 +183,19 @@ namespace rollerCoasterBuilder {
         }
     }
 
-    //% block="add ramp $direction $distance blocks || changing 1 block vertically every $horiz blocks forward"
+    //% block="add ramp $direction $distance blocks || changing 1 block vertically every $horizSpace blocks forward"
     //% distance.defl=10
     //% blockId="rollerCoasterBuilderRamp" weight=90
-    export function buildRamp(direction: RcBldVerticalDirection, distance: number, horiz: number) {
+    export function buildRamp(direction: RcBldVerticalDirection, distance: number, horizSpace: number) {
         if (direction == RcBldVerticalDirection.Up) {
-            rampUp(distance);
+            rampUp(distance, horizSpace);
         }
         else {
-            rampDown(distance);
+            rampDown(distance, horizSpace);
         }
     }
 
-    function rampUp(height: number) {
+    function rampUp(height: number, horizSpace: number) {
         for (let index = 0; index <= height; index++) {
             if (index > 0) {
                 if (fillTrack) {
@@ -218,7 +218,7 @@ namespace rollerCoasterBuilder {
         builder.move(UP, height)
     }
 
-    function rampDown(distance: number) {
+    function rampDown(distance: number, horizSpace: number) {
         for (let index = 0; index <= distance; index++) {
             rollerCoasterBuilder.placeRail()
             builder.move(DOWN, 1)
