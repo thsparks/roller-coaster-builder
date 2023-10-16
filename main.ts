@@ -330,7 +330,7 @@ namespace rollerCoasterBuilder {
     //% group="Customization"
     //% block
     //% blockType.shadow=minecraftBlock
-    //% blockId="rcbSetBaseBlock" weight = 20
+    //% blockId="rcbSetBaseBlock" weight=20
     export function setRollerCoasterBaseBlock(blockType: number) {
         railBase = blockType
     }
@@ -338,7 +338,7 @@ namespace rollerCoasterBuilder {
     //% group="Customization"
     //% block="set normal power interval to $interval"
     //% interval.defl=5 interval.min=1 interval.max=8
-    //% blockId="rcbSetPowerInterval" weight = 19
+    //% blockId="rcbSetPowerInterval" weight=19
     export function setNormalPowerInterval(interval: number = 5) {
         powerInterval = interval
     }
@@ -346,7 +346,7 @@ namespace rollerCoasterBuilder {
     //% group="Customization"
     //% block="set water protection to $value"
     //% value.defl=true
-    //% blockId="rcbSetWaterProtection" weight = 18
+    //% blockId="rcbSetWaterProtection" weight=18
     export function setWaterProtection(value: boolean) {
         waterProtection = value
     }
@@ -354,7 +354,7 @@ namespace rollerCoasterBuilder {
     //% group="Customization"
     //% block="set lava protection to $value"
     //% value.defl=true
-    //% blockId="rcbSetLavaProtection" weight = 17
+    //% blockId="rcbSetLavaProtection" weight=17
     export function setLavaProtection(value: boolean) {
         lavaProtection = value
     }
