@@ -24,6 +24,10 @@ namespace rollerCoasterBuilder {
     // Would need to ensure airspace for intersection. (Add 1-2 air blocks above each track)
     let fillTrack = false
 
+    // Can be disabled for perf.
+    let waterProtection = true;
+    let lavaProtection = true;
+
     //% block="add single rail to track"
     //% blockId="rollerCoasterBuilderPlaceRail" weight=65
     export function placeRail() {
@@ -53,10 +57,25 @@ namespace rollerCoasterBuilder {
 
     function placeRailInternal(position: Position, baseBlock: number, railBlock: number) {
         blocks.place(baseBlock, position)
-        blocks.place(railBlock, position.move(CardinalDirection.Up, 1))
 
-        // Need two air blocks so player can fit if the track tunnels (or intersects with something).
-        placeAirAbove(position, 2, 2)
+        if (waterProtection || lavaProtection) {
+            const southWestDownCorner = position.move(CardinalDirection.South, 1).move(CardinalDirection.West, 1).move(CardinalDirection.Up, 1)
+            const northEastUpCorner = position.move(CardinalDirection.North, 1).move(CardinalDirection.East, 1).move(CardinalDirection.Up, 4)
+
+            if (waterProtection) {
+                blocks.replace(GLASS, 9, southWestDownCorner, northEastUpCorner) // 9 == flowing water
+                blocks.replace(GLASS, WATER, southWestDownCorner, northEastUpCorner)
+            }
+            if (lavaProtection) {
+                blocks.replace(GLASS, 11, southWestDownCorner, northEastUpCorner) // 9 == flowing lava
+                blocks.replace(GLASS, LAVA, southWestDownCorner, northEastUpCorner)
+            }
+        }
+
+        // Need air blocks so player can fit if the track tunnels (or intersects with something).
+        placeAirAbove(position, 1, 3)
+
+        blocks.place(railBlock, position.move(CardinalDirection.Up, 1))
     }
 
     function getButtonAuxForDirection(direction: CompassDirection) {
@@ -338,5 +357,21 @@ namespace rollerCoasterBuilder {
     //% blockId="rollerCoasterBuilderSetPowerInterval"
     export function setNormalPowerInterval(interval: number = 5) {
         powerInterval = interval
+    }
+
+    //% group="Customization"
+    //% block="set water protection to $value"
+    //% value.defl=true
+    //% blockId="rollerCoasterBuilderSetWaterProtection"
+    export function setWaterProtection(value: boolean) {
+        waterProtection = value
+    }
+
+    //% group="Customization"
+    //% block="set lava protection to $value"
+    //% value.defl=true
+    //% blockId="rollerCoasterBuilderSetLavaProtection"
+    export function setLavaProtection(value: boolean) {
+        lavaProtection = value
     }
 }
