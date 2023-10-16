@@ -214,9 +214,6 @@ namespace rollerCoasterBuilder {
         let unpoweredBlocksPlaced = 8; // Set to 8 so first block is powered.
         for (let currentHeight = 0; currentHeight <= height; currentHeight++) {
             for (let currentHoriz = 0; currentHoriz < horizSpace; currentHoriz++) {
-                if (currentHeight > 0) {
-                    builder.move(UP, currentHeight);
-                }
                 if (unpoweredBlocksPlaced >= 8) {
                     rollerCoasterBuilder.placePoweredRail()
                     unpoweredBlocksPlaced = 0
@@ -225,10 +222,10 @@ namespace rollerCoasterBuilder {
                     unpoweredBlocksPlaced++
                 }
                 builder.move(FORWARD, 1)
-                builder.move(DOWN, currentHeight)
             }
+            builder.move(UP, 1);
         }
-        builder.move(UP, height)
+        builder.move(DOWN, 1)
     }
 
     function rampDown(descentDistance: number, horizSpace: number) {
