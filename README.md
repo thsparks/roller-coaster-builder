@@ -1,4 +1,11 @@
+# Code Moved
+**For latest changes, see https://github.com/microsoft/makecode-minecraft-roller-coaster**
 
+--------------------------------------------------------------
+--------------------------------------------------------------
+--------------------------------------------------------------
+
+# Old Info
 > Open this page at [https://thsparks.github.io/roller-coaster-builder/](https://thsparks.github.io/roller-coaster-builder/)
 
 ## Use as Extension
